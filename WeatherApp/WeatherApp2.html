@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://kit.fontawesome.com/1838053033.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
+    </style>
+</head>
+
+<body class="bg-black position-relative m-0">
+
+    <style>
+        #myVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+        @keyframes Jump {
+          from {
+            right: 200px; 
+            top:500px;
+          }
+          to {
+            top: 490px;
+          }
+        }
+
+        .jumpan {
+            animation-name: Jump;
+            animation-duration: 0.25s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .selectb{
+          background-color: transparent;
+        }
+
+        .selectb:hover {
+            background-color: #e772ef29;
+        }
+
+        .infor {
+          padding-right: 80px;
+          color: #a6bdd1;
+          font-weight: 30px;
+          font-size: 20px;
+          font-family: 'Rubik', sans-serif;
+          text-align: center;
+        }
+
+        .title{
+          padding-right: 10px;
+          color: #cd9ccd91;
+          font-family: 'Rubik', sans-serif;
+          font-weight: bolder;
+          text-shadow: 1px 4px 20px #ffffff73;
+          text-align: center;
+        }
+
+        td{
+          text-align: center;
+        }
+        
+        .emoti{
+          transform: translate(-30px, 0px);
+          font-size: 25px;
+          margin-bottom: 20px;
+        }
+
+    </style>
+
+    <video class="z-1" autoplay muted loop id="myVideo">
+        <source id="Vidd" src="" type="video/mp4"></video>
+    <div class="z-2 bg-dark bg-opacity-50 m-0 position-relative top-0 start-0" style="height: 400px;">
+        <div class="rounded-pill my-3 mx-5 mh-25 p-2 d-flex flex-row justify-content-between" style="background-color: rgb(250, 216, 244, 0.7);">
+            <div class="flex-fill text-light">
+                <img src="cloud.png" style="width: 40px;" alt="" class="ps-1">
+            </div>
+            <div class="flex-fill align-self-center">
+                <form id="Form" action="" class="ms-5">
+                    <input id="searchbar" class="searchval shadow-lg border border-0 text-white text-center py-1 rounded-pill" type="text" placeholder="Enter a City Name" style="background: rgb(0,0,6);
+                        background: linear-gradient(90deg, rgba(0,0,6,0.3) 0%, rgba(227,12,199,0.3) 0%, rgba(181,60,179,0.3) 25%, rgba(136,81,163,0.3) 50%, rgba(208,0,255,0.3) 100%);">
+                </form>
+            </div>
+            <div class="flex-fill ps-5">
+                <button id="shortcut1" class="selectb rounded-pill text-body-secondary pb-2 ms-5 align-self-center border border-0" style="padding-top: 5px;">Toronto</button>
+                <button id="shortcut2" class="selectb rounded-pill text-body-secondary pb-2 ms-5 align-self-center border border-0" style="padding-top: 5px;">Addis Ababa</button>
+                <button id="shortcut3" class="selectb rounded-pill text-body-secondary pb-2 ms-5 align-self-center border border-0" style="padding-top: 5px;"> Berlin </button>
+                <button id="shortcut4" class="selectb rounded-pill text-body-secondary pb-2 ms-5 align-self-center border border-0" style="padding-top: 5px;"> New York </button>
+            </div>
+        </div>
+        <div id="carouselExample" class="carousel slide h-100">
+            <div class="carousel-inner h-100">
+              <div class="carousel-item active h-100">
+                <h1 id="cityname" class="" style="text-align: center; color:#a399a5; font-size: 80px; font-family: 'Rowdies', cursive;"></h1>
+                <div style="text-align: center;">
+                  <span id = "temp" class="mx-3" style="text-shadow: 1px 1px 2px #b69696; ; color: azure; font-family: 'Rowdies', cursive; font-size: xx-large;">Enter a city above...</span>
+                  <span id = "icon" class="position-relative mt-5 mx-3"></span>
+                </div> 
+              </div>
+              <div class="carousel-item h-100">
+                <table class="text-light position-relative translate-middle start-50" style="top: 150px; min-height: 200px; min-width: 70%">
+                  <tr>
+                    <td>
+                      <i class='emoti fas fa-sun'></i>
+                    </td>
+                    <td>
+                      <i class='emoti fas fa-thermometer-quarter'></i>
+                    </td>
+                    <td>
+                      <i class='emoti fas fa-wind'></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4 class="title d-inline">Weather:</h4>
+                      <p id="weathermain" class="infor d-inline">Rain</p>
+                    </td>
+                    <td>
+                      <h4 class="title d-inline">Minimum Temp:</h4>
+                      <p id="mintemp" class="infor d-inline">234 C</p>
+                    </td>
+                    <td>
+                      <h4 class="title d-inline">Wind Speed:</h4>
+                      <p id="windspeed" class="infor d-inline">3.6</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4 class="title d-inline">Description:</h4>
+                      <p id="weatherdisc" class="infor d-inline">Moderate rain</p>
+                    </td>
+                    <td>
+                      <h4 class="title d-inline">Maximum Temp:</h4>
+                      <p id="maxtemp" class="infor d-inline">123</p>
+                    </td>
+                    <td>
+                      <h4 class="title d-inline">Wind Degree:</h4>
+                      <p id="winddegree" class="infor d-inline">0.5</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4 class="title d-inline">Feels Like:</h4>
+                      <p id="feelslike" class="infor d-inline">35 C</p>
+                    </td>
+                    <td>
+                      <h4 class="title d-inline">Pressure:</h4>
+                      <p id="pressure" class="infor d-inline">250</p>
+                    </td>
+                    <td>
+                      <h4 class="title d-inline">Wind Gust:</h4>
+                      <p id="windgust" class="infor d-inline">42</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </div>
+    <div id="timegeneral" class="border-bottom border-secondary rounded z-3 w-25 container" style="position: relative; top: -30px; left: -310px; height: 60px; background-color: rgb(227 165 234 / 30%)">
+      <div class="rounded row gx-4" style="height: 60px;">
+        <div id="hour" class="border-end border-secondary rounded col" style="font-family: 'Rowdies', cursive; color:#a399a5; text-align: center; font-size: 30px; height: 60px;">
+          
+        </div>
+        <div id="minute" class="rounded col" style="font-family: 'Rowdies', cursive; color:#a399a5; text-align: center; font-size: 30px; height: 60px;">
+          
+        </div>
+        <div id="second" class="border-start border-secondary rounded col" style="font-family: 'Rowdies', cursive; color:#a399a5; text-align: center; font-size: 30px; height: 60px;">
+          
+        </div>
+      </div>
+    </div>
+    <button id="tip" class="border border-0 bg-transparent z-3" style="position:absolute; right: 200px; top:500px;">
+      <img style="width: 35px;" src="Triangle.png" alt="">
+    </button>
+    <span id="words" class="rounded-pill z-3 bg-dark bg-opacity-50 py-2 px-4" style="position:absolute; right: 200px; top:460px; color: #ddcddb; font-size:large;">
+      Some test text in here for now, yes yes yes
+    </span>
+        
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#words").hide()
+        $("#timegeneral").hide()
+        $("#tip").hide()
+        $("#searchbar").after($("<button> </button>").attr('id', 'searchbutton'));
+        $('#searchbutton').html($('<img>',{id:'picture',src:'Search.png'}))
+                          .addClass('searchbutton bg-transparent border border-0')
+        $('#picture').css ({
+                          width: "25px",
+                          position: "relative",
+                          top: "-2px",
+                          opacity: "0.5",
+                          })
+        
+        function mainCalc(city) {
+              if (currentInterval > 0){
+                clearInterval(currentInterval)
+              }
+              event.preventDefault();
+              document.getElementById("Form").reset();
+              var url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=9aab6fc5372a05a9b9579dee92514753`
+              $.get(url, function(data){
+                // {% comment %} console.log(data) {% endcomment %}
+                var Lat = data[0]["lat"]
+                var Long = data[0]["lon"]
+                var nurl = `https://api.openweathermap.org/data/2.5/weather?lat=${Lat}&lon=${Long}&appid=9aab6fc5372a05a9b9579dee92514753`
+                $.get(nurl, function(actual){
+                    console.log("jkejkejfl")
+                    console.log(actual.weather[0].main)
+                    var temperature = actual.main.temp -273.15
+                    var temperaturedisplay = temperature.toFixed(2) + " C"
+                    var icon = actual.weather[0].icon
+                    var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+                    var name = actual.name
+                    $("#temp").text(temperaturedisplay)
+                    $("#icon").html($('<img>',{id:'iconpic',src:iconurl}))
+                    $("#iconpic").css({
+                                      width: "70px",
+                    })
+                    var citydisplay = city.toUpperCase()
+                    $("#cityname").text(city.toUpperCase())
+
+                    $("#timegeneral").show()
+                    $("#tip").show()
+
+                    currentInterval = setInterval(function(){
+                        var hdate = new Date()
+                        var offset = 0 - hdate.getTimezoneOffset()/60
+                        var hmin = hdate.getMinutes()
+                        var hsec = hdate.getSeconds()
+                        var diff = Math.round(Long/15) - offset
+                        if((hdate.getHours() + diff) > 23){
+                          disphour = (hdate.getHours() + diff) - 24
+                          var formattedNumberh = ("0" + disphour).slice(-2)
+                          $("#hour").text(formattedNumberh)
+                        }
+                        else if((hdate.getHours() + diff) < 0){
+                          disphour = 24 + (hdate.getHours() + diff)
+                          var formattedNumberh = ("0" + disphour).slice(-2)
+                          $("#hour").text(formattedNumberh)
+                        }
+                        else{
+                          disphour = hdate.getHours() + diff
+                          var formattedNumberh = ("0" + disphour).slice(-2)
+                          $("#hour").text(formattedNumberh)
+                        }
+                        var formattedNumberm = ("0" + hmin).slice(-2)
+                        var formattedNumbers = ("0" + hsec).slice(-2)
+                        $("#minute").text(formattedNumberm)                                    
+                        $("#second").text(formattedNumbers)                                          
+                    }, 1000) 
+
+                    if(actual.weather[0].main == "Snow"){
+                      $("video").attr('src', "Snow.mp4")
+                    }
+                    else if(actual.weather[0].main == "Rain"){
+                      $("video").attr('src', "Rain.mp4")
+                    }
+                    else if(actual.weather[0].main == "Clouds"){
+                      $("video").attr('src', "Clouds.mp4")
+                    }
+                    else if(actual.weather[0].main == "Fog" || actual.weather[0].main == "Haze" || actual.weather[0].main == "Mist"){
+                      $("video").attr('src', "Haze.mp4")
+                    }
+                    else if(actual.weather[0].main == "Clear" && actual.weather[0].icon == '01d'){
+                      $("video").attr('src', "Blue.mp4")
+                    }
+                    else if(actual.weather[0].main == "Clear"){
+                      $("video").attr('src', "Clear.mp4")
+                    }
+
+                    var message = null
+                    if (temperature <= -10){
+                      message = `Wow, it's really cold in ${city}! Make sure to wear a thermal jacket!`
+                    }
+                    else if (-10 < temperature && temperature<= 0){
+                      message = `Look at that; ${city} is in the negatives! Stay warm!`
+                    }
+                    else if (0 < temperature && temperature<= 10){
+                      message = `Brrr...it's looking a little chilly in ${city}! A nice wind-breaker will do!`
+                    }
+                    else if (10 < temperature && temperature<= 20){
+                      message = `Nice weather in ${city} today! Embrace it while it lasts...`
+                    }
+                    else if (20 < temperature && temperature<= 35){
+                      message = `It is super warm in ${city}! Go for a walk, or a picnic!`
+                    }
+                    else{
+                      message = `It's looking like a heat-stroke might be possible ${city} today! Be careful and drink water!`
+                    }
+                    $("#words").text(message)
+
+                    $("#tip").addClass("jumpan")
+                             .on("mouseenter", function(e){
+                              $("#words").show()
+                              $(this).removeClass("jumpan")
+                             })
+                             .on("mouseleave", function(e){
+                              $("#words").hide()
+                              $(this).addClass("jumpan")
+                             })
+
+                    var weatherMain = actual.weather[0].main
+                    $("#weathermain").text(weatherMain)
+                    var weatherDisc = actual.weather[0].description
+                    var weatherDiscDisp = weatherDisc[0].toUpperCase() + weatherDisc.slice(1, weatherDisc.length)
+                    $("#weatherdisc").text(weatherDiscDisp)
+                    var feelsLike = actual.main.feels_like - 273.15
+                    feelsLikeDisp = feelsLike.toFixed(2) + " C"
+                    $("#feelslike").text(feelsLikeDisp)
+                    var maxTemp = actual.main.temp_max - 273.15
+                    maxTempDisp = maxTemp.toFixed(2) + " C"
+                    $("#maxtemp").text(maxTempDisp)
+                    var minTemp = actual.main.temp_min - 273.15
+                    minTempDisp = minTemp.toFixed(2) + " C"
+                    $("#mintemp").text(minTempDisp)
+                    var pressure = actual.main.pressure + " HPa"
+                    $("#pressure").text(pressure)
+                    var windSpeed = actual.wind.speed + " m/s"
+                    $("#windspeed").text(windSpeed)
+                    var windDirection = actual.wind.deg
+                    $("#winddegree").text(windDirection)
+                    var windGust = actual.wind.gust + " m/s"
+                    $("#windgust").text(windGust)
+                    
+                })
+              })
+        }
+
+        var currentInterval = null
+        $(document).on("click", ".searchbutton", function(e){
+          var city = $("#searchbar").val()
+          mainCalc(city)
+        })
+
+        $(document).on("click", "#shortcut1", function(e){
+          var city = $("#shortcut1").text()
+          mainCalc(city)
+        })
+
+        $(document).on("click", "#shortcut2", function(e){
+          var city = $("#shortcut2").text()
+          mainCalc(city)
+        })
+
+        $(document).on("click", "#shortcut3", function(e){
+          var city = $("#shortcut3").text()
+          mainCalc(city)
+        })
+         
+        $(document).on("click", "#shortcut4", function(e){
+          var city = $("#shortcut4").text()
+          mainCalc(city)
+        })
+
+      })
+    </script>
+</body>
+</html>
