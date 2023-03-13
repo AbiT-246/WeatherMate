@@ -1,0 +1,60 @@
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+@keyframes Jump {
+  from {
+    right: 200px; 
+    top:500px;
+  }
+  to {
+    top: 490px;
+  }
+}
+
+.jumpan {
+    animation-name: Jump;
+    animation-duration: 0.25s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.selectb{
+  background-color: transparent;
+}
+
+.selectb:hover {
+    background-color: #e772ef29;
+}
+
+.infor {
+  padding-right: 80px;
+  color: #a6bdd1;
+  font-weight: 30px;
+  font-size: 20px;
+  font-family: 'Rubik', sans-serif;
+  text-align: center;
+}
+
+.title{
+  padding-right: 10px;
+  color: #cd9ccd91;
+  font-family: 'Rubik', sans-serif;
+  font-weight: bolder;
+  text-shadow: 1px 4px 20px #ffffff73;
+  text-align: center;
+}
+
+td{
+  text-align: center;
+}
+
+.emoti{
+  transform: translate(-30px, 0px);
+  font-size: 25px;
+  margin-bottom: 20px;
+}

@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Rowdies&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="WeatherApp2.css">
     <script src="https://kit.fontawesome.com/1838053033.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
@@ -17,76 +18,12 @@
 
 <body class="bg-black position-relative m-0">
 
-    <style>
-        #myVideo {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-        }
-
-        @keyframes Jump {
-          from {
-            right: 200px; 
-            top:500px;
-          }
-          to {
-            top: 490px;
-          }
-        }
-
-        .jumpan {
-            animation-name: Jump;
-            animation-duration: 0.25s;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
-
-        .selectb{
-          background-color: transparent;
-        }
-
-        .selectb:hover {
-            background-color: #e772ef29;
-        }
-
-        .infor {
-          padding-right: 80px;
-          color: #a6bdd1;
-          font-weight: 30px;
-          font-size: 20px;
-          font-family: 'Rubik', sans-serif;
-          text-align: center;
-        }
-
-        .title{
-          padding-right: 10px;
-          color: #cd9ccd91;
-          font-family: 'Rubik', sans-serif;
-          font-weight: bolder;
-          text-shadow: 1px 4px 20px #ffffff73;
-          text-align: center;
-        }
-
-        td{
-          text-align: center;
-        }
-        
-        .emoti{
-          transform: translate(-30px, 0px);
-          font-size: 25px;
-          margin-bottom: 20px;
-        }
-
-    </style>
-
     <video class="z-1" autoplay muted loop id="myVideo">
         <source id="Vidd" src="" type="video/mp4"></video>
     <div class="z-2 bg-dark bg-opacity-50 m-0 position-relative top-0 start-0" style="height: 400px;">
         <div class="rounded-pill my-3 mx-5 mh-25 p-2 d-flex flex-row justify-content-between" style="background-color: rgb(250, 216, 244, 0.7);">
             <div class="flex-fill text-light">
-                <img src="cloud.png" style="width: 40px;" alt="" class="ps-1">
+                <img src="Utils/cloud.png" style="width: 40px;" alt="" class="ps-1">
             </div>
             <div class="flex-fill align-self-center">
                 <form id="Form" action="" class="ms-5">
@@ -192,192 +129,16 @@
       </div>
     </div>
     <button id="tip" class="border border-0 bg-transparent z-3" style="position:absolute; right: 200px; top:500px;">
-      <img style="width: 35px;" src="Triangle.png" alt="">
+      <img style="width: 35px;" src="Utils/Triangle.png" alt="">
     </button>
     <span id="words" class="rounded-pill z-3 bg-dark bg-opacity-50 py-2 px-4" style="position:absolute; right: 200px; top:460px; color: #ddcddb; font-size:large;">
-      Some test text in here for now, yes yes yes
+      Some test text in here for now
     </span>
         
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script>
-      $(document).ready(function(){
-        $("#words").hide()
-        $("#timegeneral").hide()
-        $("#tip").hide()
-        $("#searchbar").after($("<button> </button>").attr('id', 'searchbutton'));
-        $('#searchbutton').html($('<img>',{id:'picture',src:'Search.png'}))
-                          .addClass('searchbutton bg-transparent border border-0')
-        $('#picture').css ({
-                          width: "25px",
-                          position: "relative",
-                          top: "-2px",
-                          opacity: "0.5",
-                          })
-        
-        function mainCalc(city) {
-              if (currentInterval > 0){
-                clearInterval(currentInterval)
-              }
-              event.preventDefault();
-              document.getElementById("Form").reset();
-              var url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=9aab6fc5372a05a9b9579dee92514753`
-              $.get(url, function(data){
-                // {% comment %} console.log(data) {% endcomment %}
-                var Lat = data[0]["lat"]
-                var Long = data[0]["lon"]
-                var nurl = `https://api.openweathermap.org/data/2.5/weather?lat=${Lat}&lon=${Long}&appid=9aab6fc5372a05a9b9579dee92514753`
-                $.get(nurl, function(actual){
-                    console.log("jkejkejfl")
-                    console.log(actual.weather[0].main)
-                    var temperature = actual.main.temp -273.15
-                    var temperaturedisplay = temperature.toFixed(2) + " C"
-                    var icon = actual.weather[0].icon
-                    var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
-                    var name = actual.name
-                    $("#temp").text(temperaturedisplay)
-                    $("#icon").html($('<img>',{id:'iconpic',src:iconurl}))
-                    $("#iconpic").css({
-                                      width: "70px",
-                    })
-                    var citydisplay = city.toUpperCase()
-                    $("#cityname").text(city.toUpperCase())
-
-                    $("#timegeneral").show()
-                    $("#tip").show()
-
-                    currentInterval = setInterval(function(){
-                        var hdate = new Date()
-                        var offset = 0 - hdate.getTimezoneOffset()/60
-                        var hmin = hdate.getMinutes()
-                        var hsec = hdate.getSeconds()
-                        var diff = Math.round(Long/15) - offset
-                        if((hdate.getHours() + diff) > 23){
-                          disphour = (hdate.getHours() + diff) - 24
-                          var formattedNumberh = ("0" + disphour).slice(-2)
-                          $("#hour").text(formattedNumberh)
-                        }
-                        else if((hdate.getHours() + diff) < 0){
-                          disphour = 24 + (hdate.getHours() + diff)
-                          var formattedNumberh = ("0" + disphour).slice(-2)
-                          $("#hour").text(formattedNumberh)
-                        }
-                        else{
-                          disphour = hdate.getHours() + diff
-                          var formattedNumberh = ("0" + disphour).slice(-2)
-                          $("#hour").text(formattedNumberh)
-                        }
-                        var formattedNumberm = ("0" + hmin).slice(-2)
-                        var formattedNumbers = ("0" + hsec).slice(-2)
-                        $("#minute").text(formattedNumberm)                                    
-                        $("#second").text(formattedNumbers)                                          
-                    }, 1000) 
-
-                    if(actual.weather[0].main == "Snow"){
-                      $("video").attr('src', "Snow.mp4")
-                    }
-                    else if(actual.weather[0].main == "Rain"){
-                      $("video").attr('src', "Rain.mp4")
-                    }
-                    else if(actual.weather[0].main == "Clouds"){
-                      $("video").attr('src', "Clouds.mp4")
-                    }
-                    else if(actual.weather[0].main == "Fog" || actual.weather[0].main == "Haze" || actual.weather[0].main == "Mist"){
-                      $("video").attr('src', "Haze.mp4")
-                    }
-                    else if(actual.weather[0].main == "Clear" && actual.weather[0].icon == '01d'){
-                      $("video").attr('src', "Blue.mp4")
-                    }
-                    else if(actual.weather[0].main == "Clear"){
-                      $("video").attr('src', "Clear.mp4")
-                    }
-
-                    var message = null
-                    if (temperature <= -10){
-                      message = `Wow, it's really cold in ${city}! Make sure to wear a thermal jacket!`
-                    }
-                    else if (-10 < temperature && temperature<= 0){
-                      message = `Look at that; ${city} is in the negatives! Stay warm!`
-                    }
-                    else if (0 < temperature && temperature<= 10){
-                      message = `Brrr...it's looking a little chilly in ${city}! A nice wind-breaker will do!`
-                    }
-                    else if (10 < temperature && temperature<= 20){
-                      message = `Nice weather in ${city} today! Embrace it while it lasts...`
-                    }
-                    else if (20 < temperature && temperature<= 35){
-                      message = `It is super warm in ${city}! Go for a walk, or a picnic!`
-                    }
-                    else{
-                      message = `It's looking like a heat-stroke might be possible ${city} today! Be careful and drink water!`
-                    }
-                    $("#words").text(message)
-
-                    $("#tip").addClass("jumpan")
-                             .on("mouseenter", function(e){
-                              $("#words").show()
-                              $(this).removeClass("jumpan")
-                             })
-                             .on("mouseleave", function(e){
-                              $("#words").hide()
-                              $(this).addClass("jumpan")
-                             })
-
-                    var weatherMain = actual.weather[0].main
-                    $("#weathermain").text(weatherMain)
-                    var weatherDisc = actual.weather[0].description
-                    var weatherDiscDisp = weatherDisc[0].toUpperCase() + weatherDisc.slice(1, weatherDisc.length)
-                    $("#weatherdisc").text(weatherDiscDisp)
-                    var feelsLike = actual.main.feels_like - 273.15
-                    feelsLikeDisp = feelsLike.toFixed(2) + " C"
-                    $("#feelslike").text(feelsLikeDisp)
-                    var maxTemp = actual.main.temp_max - 273.15
-                    maxTempDisp = maxTemp.toFixed(2) + " C"
-                    $("#maxtemp").text(maxTempDisp)
-                    var minTemp = actual.main.temp_min - 273.15
-                    minTempDisp = minTemp.toFixed(2) + " C"
-                    $("#mintemp").text(minTempDisp)
-                    var pressure = actual.main.pressure + " HPa"
-                    $("#pressure").text(pressure)
-                    var windSpeed = actual.wind.speed + " m/s"
-                    $("#windspeed").text(windSpeed)
-                    var windDirection = actual.wind.deg
-                    $("#winddegree").text(windDirection)
-                    var windGust = actual.wind.gust + " m/s"
-                    $("#windgust").text(windGust)
-                    
-                })
-              })
-        }
-
-        var currentInterval = null
-        $(document).on("click", ".searchbutton", function(e){
-          var city = $("#searchbar").val()
-          mainCalc(city)
-        })
-
-        $(document).on("click", "#shortcut1", function(e){
-          var city = $("#shortcut1").text()
-          mainCalc(city)
-        })
-
-        $(document).on("click", "#shortcut2", function(e){
-          var city = $("#shortcut2").text()
-          mainCalc(city)
-        })
-
-        $(document).on("click", "#shortcut3", function(e){
-          var city = $("#shortcut3").text()
-          mainCalc(city)
-        })
-         
-        $(document).on("click", "#shortcut4", function(e){
-          var city = $("#shortcut4").text()
-          mainCalc(city)
-        })
-
-      })
+    <script src = "WeatherApp2.js"></script>
     </script>
 </body>
 </html>
