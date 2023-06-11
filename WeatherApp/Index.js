@@ -19,7 +19,7 @@ $(document).ready(function () {
     }
     event.preventDefault();
     document.getElementById("Form").reset();
-    var url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=9aab6fc5372a05a9b9579dee92514753`;
+    var url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=9aab6fc5372a05a9b9579dee92514753`;
 
     $.get(url, function (data) {
       var Lat = data[0]["lat"];
@@ -30,7 +30,7 @@ $(document).ready(function () {
         var temperature = actual.main.temp - 273.15;
         var temperaturedisplay = temperature.toFixed(2) + " C";
         var icon = actual.weather[0].icon;
-        var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+        var iconurl = "https://openweathermap.org/img/w/" + icon + ".png";
 
         $("#temp").text(temperaturedisplay);
         $("#icon").html($("<img>", { id: "iconpic", src: iconurl }));
